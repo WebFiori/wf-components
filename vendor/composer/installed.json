@@ -1,0 +1,308 @@
+{
+    "packages": [
+        {
+            "name": "webfiori/collections",
+            "version": "v1.0.3",
+            "version_normalized": "1.0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebFiori/collections.git",
+                "reference": "ac072ab441c7635d94e60e095402023a59667bff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebFiori/collections/zipball/ac072ab441c7635d94e60e095402023a59667bff",
+                "reference": "ac072ab441c7635d94e60e095402023a59667bff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "time": "2021-03-28T14:22:48+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Basic collections set used by WebFiori.",
+            "keywords": [
+                "collection",
+                "collections",
+                "data structures",
+                "library",
+                "webfiori"
+            ],
+            "support": {
+                "issues": "https://github.com/WebFiori/collections/issues",
+                "source": "https://github.com/WebFiori/collections/tree/v1.0.3"
+            },
+            "install-path": "../webfiori/collections"
+        },
+        {
+            "name": "webfiori/database",
+            "version": "v0.3.8",
+            "version_normalized": "0.3.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebFiori/database.git",
+                "reference": "09cfab66378a77a7fabbad133ea06424fd2e1f2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebFiori/database/zipball/09cfab66378a77a7fabbad133ea06424fd2e1f2f",
+                "reference": "09cfab66378a77a7fabbad133ea06424fd2e1f2f",
+                "shasum": ""
+            },
+            "time": "2021-12-05T19:25:07+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Database abstraction layer of WebFiori framework.",
+            "keywords": [
+                "database",
+                "library",
+                "mysql",
+                "php",
+                "query builder"
+            ],
+            "support": {
+                "issues": "https://github.com/WebFiori/database/issues",
+                "source": "https://github.com/WebFiori/database/tree/v0.3.8"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/IbrahimBinAlshikh",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.buymeacoffee.com/ibrahimdev",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/ibrahimdev",
+                    "type": "ko_fi"
+                }
+            ],
+            "install-path": "../webfiori/database"
+        },
+        {
+            "name": "webfiori/framework",
+            "version": "v2.4.3",
+            "version_normalized": "2.4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebFiori/framework.git",
+                "reference": "9f356308504034d716eb8db853783d8114dfeb3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebFiori/framework/zipball/9f356308504034d716eb8db853783d8114dfeb3b",
+                "reference": "9f356308504034d716eb8db853783d8114dfeb3b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "webfiori/collections": "1.0.3",
+                "webfiori/database": "0.3.8",
+                "webfiori/http": "3.1.1",
+                "webfiori/jsonx": "2.1.0",
+                "webfiori/ui": "2.2.3"
+            },
+            "time": "2021-12-07T21:44:25+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ibrahim BinAlshikh",
+                    "email": "ibrahim@webfiori.com"
+                }
+            ],
+            "description": "WebFiori framework. Made to make the web bloom.",
+            "keywords": [
+                "Web APIs",
+                "api",
+                "framework",
+                "php",
+                "themes",
+                "webfiori"
+            ],
+            "support": {
+                "issues": "https://github.com/WebFiori/framework/issues",
+                "source": "https://github.com/WebFiori/framework/tree/v2.4.3"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/IbrahimBinAlshikh",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.buymeacoffee.com/ibrahimdev",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/ibrahimdev",
+                    "type": "ko_fi"
+                }
+            ],
+            "install-path": "../webfiori/framework"
+        },
+        {
+            "name": "webfiori/http",
+            "version": "v3.1.1",
+            "version_normalized": "3.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebFiori/http.git",
+                "reference": "1cee0781ac7c3bfdee1f8385977630dca576dd87"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebFiori/http/zipball/1cee0781ac7c3bfdee1f8385977630dca576dd87",
+                "reference": "1cee0781ac7c3bfdee1f8385977630dca576dd87",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "webfiori/jsonx": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "time": "2021-10-25T12:42:25+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Basic library that can help in creating RESTful APIs using PHP.",
+            "keywords": [
+                "Web APIs",
+                "api",
+                "http",
+                "json",
+                "library",
+                "php",
+                "psr-7"
+            ],
+            "support": {
+                "issues": "https://github.com/WebFiori/http/issues",
+                "source": "https://github.com/WebFiori/http/tree/v3.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/IbrahimBinAlshikh",
+                    "type": "custom"
+                }
+            ],
+            "install-path": "../webfiori/http"
+        },
+        {
+            "name": "webfiori/jsonx",
+            "version": "v2.1.0",
+            "version_normalized": "2.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebFiori/json.git",
+                "reference": "08a771c896a52b5e3175f3075b3f015a4bff044e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebFiori/json/zipball/08a771c896a52b5e3175f3075b3f015a4bff044e",
+                "reference": "08a771c896a52b5e3175f3075b3f015a4bff044e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "time": "2021-06-23T19:02:53+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library for creating well-formatted JSON strings.",
+            "keywords": [
+                "json",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/WebFiori/json/issues",
+                "source": "https://github.com/WebFiori/json/tree/v2.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/IbrahimBinAlshikh",
+                    "type": "custom"
+                }
+            ],
+            "install-path": "../webfiori/jsonx"
+        },
+        {
+            "name": "webfiori/ui",
+            "version": "v2.2.3",
+            "version_normalized": "2.2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebFiori/ui.git",
+                "reference": "36b75e939d015867768430d51126f443efd9f237"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebFiori/ui/zipball/36b75e939d015867768430d51126f443efd9f237",
+                "reference": "36b75e939d015867768430d51126f443efd9f237",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "webfiori/collections": "1.0.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "time": "2021-12-07T21:28:53+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A library that provides basic utilities for creating HTML documents.",
+            "keywords": [
+                "code",
+                "dom",
+                "html",
+                "library",
+                "webfiori"
+            ],
+            "support": {
+                "issues": "https://github.com/WebFiori/ui/issues",
+                "source": "https://github.com/WebFiori/ui/tree/v2.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/IbrahimBinAlshikh",
+                    "type": "custom"
+                }
+            ],
+            "install-path": "../webfiori/ui"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

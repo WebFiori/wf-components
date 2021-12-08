@@ -1,0 +1,23 @@
+{
+    "name": "webfiori/app",
+    "description": "WebFiori framework. Made to make the web bloom. This is the basic WebFiori application template. Use it to create your amazing art.",
+    "authors": [
+        {
+            "name": "Ibrahim BinAlshikh",
+            "email": "ibrahim@webfiori.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "webfiori/framework":"*"
+    },
+    "keywords": [
+        "framework",
+        "webfiori",
+        "php",
+        "API",
+        "Web APIs",
+        "Themes"
+    ],
+    "license": "MIT"
+}
