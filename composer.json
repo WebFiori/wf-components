@@ -1,6 +1,6 @@
 {
-    "name": "webfiori/app",
-    "description": "WebFiori framework. Made to make the web bloom. This is the basic WebFiori application template. Use it to create your amazing art.",
+    "name": "webfiori/components",
+    "description": "Optional pre-made components to help in building your app faster.",
     "authors": [
         {
             "name": "Ibrahim BinAlshikh",
