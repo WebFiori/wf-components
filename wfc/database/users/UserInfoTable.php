@@ -35,7 +35,7 @@ class UserInfoTable extends MySQLTable {
             ],
             'email' => [
                 'type' => 'varchar',
-                'size' => '256',
+                'size' => '128',
                 'is-unique' => true,
                 'comment' => 'The email address of the user. Can be used as username in login table to login the user to the system.',
             ],
