@@ -32,7 +32,7 @@ class UserLoginTable extends MySQLTable {
             ],
             'username' => [
                 'type' => 'varchar',
-                'size' => '256',
+                'size' => '128',
                 'is-unique' => true,
                 'comment' => 'Username of the user. Each user must have a unique username.',
             ],
