@@ -9,6 +9,7 @@ use webfiori\framework\Access;
  * @author Ibrahim
  */
 class SystemUser extends User {
+    private $userRoles;
     /**
      * 
      * @var UserSettings
@@ -21,7 +22,10 @@ class SystemUser extends User {
      * @var string
      **/
     private $salt;
-    
+    public function __construct($username = '', $password = '', $email = '') {
+        parent::__construct($username, $password, $email);
+        $this->userRoles = [];
+    }
     /**
      * Returns the value of the attribute 'salt'.
      * 
@@ -111,6 +115,26 @@ class SystemUser extends User {
         $this->settings = $settings;
     }
     /**
+     * Checks if a user belongs to specific role or not.
+     * 
+     * @param UserRole $role
+     * 
+     * @return boolean If the user has all privileges of the given role,
+     * the method will return true. If one privilege is missing,
+     * the method will return false.
+     */
+    public function hasRole(UserRole $role) {
+        $inRole = true;
+        
+        foreach ($role->privileges() as $prObj) {
+            $inRole = $inRole && $this->hasPrivilege($prObj->getID());
+        }
+        if ($inRole) {
+            $this->userRoles[] = intval($role->getID());
+        }
+        return $inRole;
+    }
+    /**
      * Returns an object of type 'Json' that contains object information.
      * 
      * @return Json An object of type 'Json'.
@@ -126,7 +150,10 @@ class SystemUser extends User {
         $json->addMultiple([
             'settings' => $this->getSettings(),
             'last-login' => $this->getLastLogin(),
-            'privileges' => $privileges
+            'privileges' => $privileges,
+            'roles' => $this->userRoles,
+            'value' => $this->getID(),
+            'text' => $this->getDisplayName()
         ]);
         return $json;
     }
