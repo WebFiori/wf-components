@@ -8,6 +8,7 @@ use webfiori\framework\session\SessionsManager;
 use webfiori\framework\File;
 use webfiori\json\Json;
 use wfc\entity\users\SystemUser;
+use wfc\entity\users\UserRole;
 /**
  * A basic class which holds basic operations on users tables.
  *
@@ -333,8 +334,153 @@ class UsersDB extends DB {
      * 
      * @return int
      */
-    public function getMaxID() {
+    public function getMaxUserID() {
         $result = $this->table('users_info')->selectMax('id')->execute();
+        $id = 0;
+        if ($result->getRows()[0]['max'] !== null) {
+            $id = $result->getRows()[0]['max'];
+        }
+        return $id;
+    }
+    
+    /**
+     * Update user role given its information as an object.
+     * 
+     * @param UserRole $role An object that holds role information.
+     */
+    public function updateRole(UserRole $role) {
+        $this->table('user_roles')->update([
+            'name' => $role->getName(),
+            'privileges' => $this->getPrStr($role),
+        ])->where('id', '=', $role->getID())->execute();
+    }
+    /**
+     * Returns an array that holds all users which belongs to specific role.
+     * 
+     * @param array $roleId The Id of the role taken from
+     * users roles table.
+     */
+    public function getUsersByRole($roleId) {
+        return $this->getUsersByRoles([$roleId]);
+    }
+    /**
+     * Returns an array that holds all users which belongs to one or more
+     * roles.
+     * 
+     * @param array $rolesIdsArr An array that holds the IDs of roles taken from
+     * users roles table.
+     */
+    public function getUsersByRoles($rolesIdsArr) {
+        $users = $this->getAllUsers();
+        $usersToReturn = [];
+        $addedUsersIds = [];
+        
+        foreach ($rolesIdsArr as $groupId) {
+            $roleObj = $this->getUserRole($groupId);
+            if ($roleObj !== null) {
+                
+                foreach ($users as $userObj) {
+                    $userObj instanceof SystemUser;
+                    
+                    if (!in_array($userObj->getID(), $addedUsersIds) && $userObj->hasRole($roleObj)) {
+                        $usersToReturn[] = $userObj;
+                        $addedUsersIds[] = $userObj->getID();
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * Returns user role given its ID.
+     * 
+     * @param int $roleId The ID of user role.
+     * 
+     * @return UserRole|null
+     */
+    public function getUserRole($roleId) {
+        $resultSet = $this->table('user_roles')->select()->where('id', '=', $roleId)->execute();
+        
+        if ($resultSet->getRowsCount() == 1) {
+            $record = $resultSet->getRows()[0];
+            
+            $group = new UserRole();
+            $group->setID($record['id']);
+            $group->setName($record['name']);
+            
+            $user = new User();
+            Access::resolvePriviliges($record['privileges'], $user);
+
+            foreach ($user->privileges() as $pr) {
+                $group->addPrivilage($pr);
+            }
+            return $group;
+        }
+    }
+    /**
+     * 
+     * @param UserRole $role
+     * @return string
+     */
+    private function getPrStr($role) {
+        $user = new User();
+        
+        foreach ($role->privileges() as $pr) {
+            $user->addPrivilege($pr->getID());
+        }
+        
+        return Access::createPermissionsStr($user);
+    }
+    /**
+     * Adds new user role to the database.
+     * 
+     * @param UserRole $userRole An object that holds user role information.
+     */
+    public function addUserRole(UserRole $userRole) {
+        $prevId = $this->getMaxRoleID();
+        $this->table('user_roles')->insert([
+            'id' => $prevId + 1,
+            'name' => $userRole->getName(),
+            'privileges' => $this->getPrStr($userRole),
+        ])->execute();
+    }
+    /**
+     * Returns an array that holds all added user roles.
+     * 
+     * @return array An array that holds objects of type 'UserRole'.
+     */
+    public function getRoles() {
+        $resultSet = $this->table('user_roles')->select()->execute();
+        
+        $resultSet->setMappingFunction(function ($data) {
+            
+            $retVal = [];
+            foreach ($data as $record) {
+                $group = new UserRole();
+                $group->setID($record['id']);
+                $group->setName($record['name']);
+
+                $user = new User();
+                Access::resolvePriviliges($record['privileges'], $user);
+                
+                foreach ($user->privileges() as $pr) {
+                    $group->addPrivilage($pr);
+                }
+                $retVal[] = $group;
+            }
+            return $retVal;
+        });
+        
+        return $resultSet->getMappedRows();
+    }
+    /**
+     * Returns the maximum value of the column ID in 'user_roles'.
+     * 
+     * This is used to generate the ID of the sector.
+     * 
+     * @return int
+     */
+    public function getMaxRoleID() {
+        $result = $this->table('user_roles')->selectMax('id')->execute();
         $id = 0;
         if ($result->getRows()[0]['max'] !== null) {
             $id = $result->getRows()[0]['max'];
