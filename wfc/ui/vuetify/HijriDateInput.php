@@ -89,4 +89,15 @@ class HijriDateInput extends HTMLNode {
     public function getDayInput() {
         return $this->dayInput;
     }
+    /**
+     * Sets a JS function to call in case one of hijri input fields changes value.
+     * 
+     * @param string $jsFunction The name of JavAscript function which is defined
+     * in the 'methods'.
+     */
+    public function setOnInput($jsFunction) {
+        $this->getYearInput()->setAttribute('@input', $jsFunction);
+        $this->getDayInput()->setAttribute('@input', $jsFunction);
+        $this->getMonthInput()->setAttribute('@input', $jsFunction);
+    }
 }
