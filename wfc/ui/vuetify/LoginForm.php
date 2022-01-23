@@ -104,7 +104,7 @@ class LoginForm extends HTMLNode {
             $this->setUsernameLabel($options['username-label']);
         }
         if (isset($options['password-label'])) {
-            $this->setUsernameLabel($options['password-label']);
+            $this->setPasswordLabel($options['password-label']);
         }
         if (isset($options['username-model'])) {
             $this->setUsernameModel($options['username-model']);
