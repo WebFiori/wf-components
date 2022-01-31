@@ -54,7 +54,7 @@ class Dialog extends HTMLNode {
             'class' => 'text-h5 grey lighten-2'
         ])
             ->addChild('v-icon', $propsArr)
-            ->text($model.'.icon')
+            ->text('{{ '.$model.'.icon }}')
             ->getParent()->addChild('div', [
                 'style' => [
                     'display' => 'inline'
