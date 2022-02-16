@@ -65,6 +65,10 @@ class DateInput extends HTMLNode {
             $this->getTextField()->setAttribute('placeholder', 'YYYY-MM-DD');
         }
     }
+    public function setOnInput($method) {
+        $this->getTextField()->setAttribute('@input', $method);
+        $this->getDatePicker()->setAttribute('@change', $method);
+    }
     public function setMenuVModel($model) {
         $this->setAttribute('v-model', $model);
     }
