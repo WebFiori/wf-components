@@ -48,6 +48,7 @@ class DateInput extends HTMLNode {
         $textFieldAttrs['v-model'] = $model.'.date';
         $textFieldAttrs['v-bind'] = 'attrs';
         $textFieldAttrs['v-on'] = 'on';
+        $textFieldAttrs['prepend-inner-icon'] = 'mdi-calendar';
         
         $this->textField = $this->addChild('template ', [
             'v-slot:activator' => "{ on, attrs }"
