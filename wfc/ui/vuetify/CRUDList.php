@@ -5,7 +5,7 @@ namespace wfc\ui\vuetify;
 use webfiori\ui\HTMLNode;
 use wfc\ui\vuetify\Dialog;
 /**
- * A v-list elemrnt which supports performing CRUD operations.
+ * A v-list element which supports performing CRUD operations.
  *
  * @author Ibrahim BinAlshikh
  */
@@ -15,6 +15,11 @@ class CRUDList extends HTMLNode {
      * @var Dialog
      */
     private $addEditDialog;
+    /**
+     * 
+     * @var Dialog
+     */
+    private $confirmDeleteDialog;
     /**
      * 
      * @var HTMLNode
@@ -30,6 +35,16 @@ class CRUDList extends HTMLNode {
      * @var HTMLNode
      */
     private $cancelBtn;
+    /**
+     * 
+     * @var HTMLNode
+     */
+    private $cancelConfirmBtn;
+    /**
+     * 
+     * @var HTMLNode
+     */
+    private $confirmBtn;
     /**
      * 
      * @var HTMLNode
@@ -69,36 +84,29 @@ class CRUDList extends HTMLNode {
         parent::__construct('v-card', [
             'elevation' => 1
         ]);
-        
-        $top = $this->addChild('v-card-text', [
-            'class' => 'py-0'
-        ])->addChild('v-toolbar', [
-            'dense', 'elevation',
-            'flat'
-        ]);
-        $this->addChild('v-divider');
-        $componentTitle = isset($props['title']) ? $props['title'] : '';
-        $top->addChild('p', [
-            'class' => 'text--secondary ma-0'
-        ])->text($componentTitle);
-        $top->addChild('v-spacer');
         $this->addEditDialog = new Dialog($props['dialog'], true);
-        $this->getDialog()->setAttribute('max-width', 500);
+        $this->confirmDeleteDialog = new Dialog($props['confirm-delete-dialog']);
         
-        $top->addChild($this->getDialog());
+        $this->createHeader($props);
+        $this->createBody($props);
+        $this->addDialogActions($props);
+        $this->addConfirmDeleteActions($props);
         
-        $this->addBtn = $this->getDialog()->addChild('template', [
-            '#activator' => '{on, attrs}'
-        ])->addChild('v-btn', [
-            'color' => "primary",
-            'text',
-            'v-bind'=>"attrs",
-            'v-on'=>"on"
+        $dialogTitle = isset($props['dialog-title']) ? $props['dialog-title'] : 'New Item';
+        $this->getDialog()->getToolbar()->addChild('v-toolbar-title')->text($dialogTitle);
+        
+        $deleteDialogTitle = isset($props['delete-title']) ? $props['delete-title'] : 'Remove Item';
+        $this->getConfirmDeleteDialog()->getToolbar()->addChild('v-toolbar-title')->text($deleteDialogTitle);
+        
+        $deleteText = isset($props['delete-prompt']) ? $props['delete-prompt'] : 'Are you sure that you would like to remove the item?';
+        $this->getConfirmDeleteDialog()->addChild('v-card-text')->text($deleteText);
+        
+        $this->inputsRow = $this->getDialog()->getVCard()->addChild('v-card-text')->addChild('v-row');
+        $this->inputsRow->addChild('v-col', [
+            'cols' => 12
         ]);
-        $this->getAddBtn()->addChild('v-icon', [
-            'color' => "primary",
-        ])->text('mdi-plus-circle ');
-        
+    }
+    private function createBody($props) {
         $itemsGroup = $this->addChild('v-card-text')->addChild('v-list', [
             'dense',
         ])->addChild('v-list-item-group',[
@@ -118,6 +126,7 @@ class CRUDList extends HTMLNode {
         ]);
         
         $listItem->addChild('v-list-item-content')->addChild('v-list-item-title')->text('{{ item.text }}');
+        
         $editAction = isset($props['edit-action']) ? $props['edit-action'] : 'editItem';
         $this->editBtn = $listItem->addChild('v-list-item-action', [
             'class' => 'ma-0'
@@ -127,23 +136,76 @@ class CRUDList extends HTMLNode {
         ]);
         $this->getEditBtn()->addChild('v-icon', ['color' => 'primary', 'small'])->text('mdi-pencil');
         
-        $deleteAction = isset($props['delete-action']) ? $props['delete-action'] : 'deleteItem';
         $listItem->addChild('v-list-item-action', [
             'class' => 'ma-0'
+        ])->addChild($this->getConfirmDeleteDialog());
+        
+        $this->getConfirmDeleteDialog()->addChild('template', [
+            '#activator' => '{on, attrs}'
         ])->addChild('v-btn', [
             'icon', 'text',
-            '@click' => $deleteAction.'(item, i)'
+            '@click' => $props['confirm-delete-dialog'].'.visible = true',
+            'v-bind'=>"attrs",
+            'v-on'=>"on"
         ])->addChild('v-icon', ['color' => 'red lighten-2', 'small'])->text('mdi-delete');
-        
-        $dialogTitle = isset($props['dialog-title']) ? $props['dialog-title'] : 'New Item';
+    }
 
-        $this->getDialog()->getToolbar()->addChild('v-toolbar-title')->text($dialogTitle);
-        
-        $this->inputsRow = $this->getDialog()->getVCard()->addChild('v-card-text')->addChild('v-row');
-        $this->inputsRow->addChild('v-col', [
-            'cols' => 12
+    private function createHeader($props) {
+        $top = $this->addChild('v-card-text', [
+            'class' => 'py-0'
+        ])->addChild('v-toolbar', [
+            'dense', 'elevation',
+            'flat'
         ]);
+        $this->addChild('v-divider');
+        $componentTitle = isset($props['title']) ? $props['title'] : '';
+        $top->addChild('p', [
+            'class' => 'text--secondary ma-0'
+        ])->text($componentTitle);
+        $top->addChild('v-spacer');
+        $top->addChild($this->getDialog());
         
+        $this->addBtn = $this->getDialog()->addChild('template', [
+            '#activator' => '{on, attrs}'
+        ])->addChild('v-btn', [
+            'color' => "primary",
+            'text',
+            'v-bind'=>"attrs",
+            'v-on'=>"on"
+        ]);
+        $this->getAddBtn()->addChild('v-icon', [
+            'color' => "primary",
+        ])->text('mdi-plus-circle');
+    }
+
+    private function addConfirmDeleteActions($props) {
+        $this->getConfirmDeleteDialog()->getVCard()->addChild('v-divider');
+        $confirmActions = $this->getConfirmDeleteDialog()->addChild('v-card-actions');
+        
+        $confirmActions->addChild('v-spacer');
+        $this->cancelConfirmBtn = $confirmActions->addChild('v-btn', [
+            'color' => "red lighten-1",
+            'text',
+            '@click' => $props['confirm-delete-dialog'].".visible = false"
+        ]);
+        $this->getConfirnCancelBtn()->addChild('v-icon', [
+            'color' => 'red lighten-1'
+        ])->text('mdi-close-circle');
+        
+        $deleteAction = isset($props['delete-action']) ? $props['delete-action'] : 'deleteItem';
+        
+        $this->confirmBtn = $confirmActions->addChild('v-btn', [
+            'text',
+            'color' => 'primary',
+            '@click' => $deleteAction.'(item, i)'
+        ]);
+        $this->getConfirnBtn()->addChild('v-icon', [
+            'color' => 'green'
+        ])->text('mdi-check-circle');
+        $confirmActions->addChild('v-spacer');
+    }
+
+    private function addDialogActions($props) {
         $this->getDialog()->getVCard()->addChild('v-divider');
         $actionsContainer = $this->getDialog()->getVCard()->addChild('v-card-actions');
         $actionsContainer->addChild('v-spacer');
@@ -166,6 +228,23 @@ class CRUDList extends HTMLNode {
         $this->getSaveBtn()->addChild('v-icon', [
             'color' => 'green'
         ])->text('mdi-check-circle');
+    }
+
+    /**
+     * Returns the button which is used to confirm delete operation.
+     * 
+     * @return HTMLNode an element with name 'v-btn'.
+     */
+    public function getConfirnBtn() {
+        return $this->confirmBtn;
+    }
+    /**
+     * Returns the button which is used to close the delete dialog.
+     * 
+     * @return HTMLNode an element with name 'v-btn'.
+     */
+    public function getConfirnCancelBtn() {
+        return $this->cancelConfirmBtn;
     }
     /**
      * Returns the button which is used to call the 'delete' method.
@@ -230,5 +309,13 @@ class CRUDList extends HTMLNode {
      */
     public function getDialog() {
         return $this->addEditDialog;
+    }
+    /**
+     * Returns the dialog which is used as confirm delete dialog.
+     * 
+     * @return Dialog
+     */
+    public function getConfirmDeleteDialog() {
+        return $this->confirmDeleteDialog;
     }
 }
