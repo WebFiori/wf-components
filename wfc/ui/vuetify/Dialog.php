@@ -31,7 +31,8 @@ class Dialog extends HTMLNode {
     public function __construct($model, $toolbar = false) {
         parent::__construct('v-dialog', [
             'v-model' => $model.'.visible',
-            'scrollable'
+            'scrollable',
+            'max-width' => 500
         ]);
         
         $this->vCard = $this->addChild('v-card');
@@ -94,6 +95,19 @@ class Dialog extends HTMLNode {
     public function getVCard() {
         return $this->vCard;
     }
+    /**
+     * Add a child to the body of the dialog.
+     * 
+     * The element that represents the body of the dialog is the 'v-card' element.
+     * 
+     * @param HTMLNode|string $node
+     * 
+     * @param array|boolean $attrsOrChain
+     * 
+     * @param boolean $chainOnParent
+     * 
+     * @return HTMLNode The added element.
+     */
     public function addChild($node, $attrsOrChain = [], $chainOnParent = false) {
         return $this->getVCard()->addChild($node, $attrsOrChain, $chainOnParent);
     }
