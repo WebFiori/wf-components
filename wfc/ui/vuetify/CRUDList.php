@@ -4,6 +4,7 @@ namespace wfc\ui\vuetify;
 
 use webfiori\ui\HTMLNode;
 use wfc\ui\vuetify\Dialog;
+use webfiori\framework\exceptions\UIException;
 /**
  * A v-list element which supports performing CRUD operations.
  *
@@ -84,11 +85,27 @@ class CRUDList extends HTMLNode {
         parent::__construct('v-card', [
             'elevation' => 1
         ]);
+        if (!isset($props['dialog'])) {
+            throw new UIException('The add/edit dialog model is missing.');
+        }
         $this->addEditDialog = new Dialog($props['dialog'], true);
-        $this->confirmDeleteDialog = new Dialog($props['confirm-delete-dialog']);
+        if (!isset($props['confirm-delete-dialog'])) {
+            throw new UIException('The "confirm-delete-dialog" model is missing.');
+        }
+        $this->confirmDeleteDialog = new Dialog($props['confirm-delete-dialog'], true);
+        $deleteText = isset($props['delete-prompt']) ? $props['delete-prompt'] : 'Are you sure that you would like to remove the item?';
+        $this->getConfirmDeleteDialog()->addToBody('v-card-text', [
+            'class' => 'pa-5'
+        ])->text($deleteText);
         
         $this->createHeader($props);
         $this->createBody($props);
+        
+        $this->inputsRow = $this->getDialog()->addToBody('v-card-text')->addChild('v-row');
+        $this->inputsRow->addChild('v-col', [
+            'cols' => 12
+        ]);
+        
         $this->addDialogActions($props);
         $this->addConfirmDeleteActions($props);
         
@@ -98,13 +115,9 @@ class CRUDList extends HTMLNode {
         $deleteDialogTitle = isset($props['delete-title']) ? $props['delete-title'] : 'Remove Item';
         $this->getConfirmDeleteDialog()->getToolbar()->addChild('v-toolbar-title')->text($deleteDialogTitle);
         
-        $deleteText = isset($props['delete-prompt']) ? $props['delete-prompt'] : 'Are you sure that you would like to remove the item?';
-        $this->getConfirmDeleteDialog()->addChild('v-card-text')->text($deleteText);
         
-        $this->inputsRow = $this->getDialog()->getVCard()->addChild('v-card-text')->addChild('v-row');
-        $this->inputsRow->addChild('v-col', [
-            'cols' => 12
-        ]);
+        
+        
     }
     private function createBody($props) {
         $itemsGroup = $this->addChild('v-card-text')->addChild('v-list', [
@@ -134,20 +147,13 @@ class CRUDList extends HTMLNode {
             'icon', 'text',
             '@click' => $editAction.'(item, i)'
         ]);
-        $this->getEditBtn()->addChild('v-icon', ['color' => 'primary', 'small'])->text('mdi-pencil');
+        $this->getEditBtn()->addChild('v-icon', ['color' => 'primary lighten-1', 'small'])->text('mdi-pencil');
         
         $listItem->addChild('v-list-item-action', [
             'class' => 'ma-0'
         ])->addChild($this->getConfirmDeleteDialog());
         
-        $this->getConfirmDeleteDialog()->addChild('template', [
-            '#activator' => '{on, attrs}'
-        ])->addChild('v-btn', [
-            'icon', 'text',
-            '@click' => $props['confirm-delete-dialog'].'.visible = true',
-            'v-bind'=>"attrs",
-            'v-on'=>"on"
-        ])->addChild('v-icon', ['color' => 'red lighten-2', 'small'])->text('mdi-delete');
+        
     }
 
     private function createHeader($props) {
@@ -168,41 +174,49 @@ class CRUDList extends HTMLNode {
         $this->addBtn = $this->getDialog()->addChild('template', [
             '#activator' => '{on, attrs}'
         ])->addChild('v-btn', [
-            'color' => "primary",
+            'color' => "primary lighten-1",
             'text',
             'v-bind'=>"attrs",
             'v-on'=>"on"
         ]);
         $this->getAddBtn()->addChild('v-icon', [
-            'color' => "primary",
+            'color' => "primary lighten-1",
         ])->text('mdi-plus-circle');
     }
 
     private function addConfirmDeleteActions($props) {
-        $this->getConfirmDeleteDialog()->getVCard()->addChild('v-divider');
-        $confirmActions = $this->getConfirmDeleteDialog()->addChild('v-card-actions');
+        $this->getConfirmDeleteDialog()->addToBody('v-divider');
+        $confirmActions = $this->getConfirmDeleteDialog()->addToBody('v-card-actions');
         
         $confirmActions->addChild('v-spacer');
         $this->cancelConfirmBtn = $confirmActions->addChild('v-btn', [
-            'color' => "red lighten-1",
+            'color' => "red lighten-2",
             'text',
             '@click' => $props['confirm-delete-dialog'].".visible = false"
         ]);
         $this->getConfirnCancelBtn()->addChild('v-icon', [
-            'color' => 'red lighten-1'
+            'color' => 'red lighten-2'
         ])->text('mdi-close-circle');
         
         $deleteAction = isset($props['delete-action']) ? $props['delete-action'] : 'deleteItem';
         
         $this->confirmBtn = $confirmActions->addChild('v-btn', [
             'text',
-            'color' => 'primary',
             '@click' => $deleteAction.'(item, i)'
         ]);
         $this->getConfirnBtn()->addChild('v-icon', [
-            'color' => 'green'
+            'color' => 'green lighten-1'
         ])->text('mdi-check-circle');
         $confirmActions->addChild('v-spacer');
+        
+        $this->getConfirmDeleteDialog()->addChild('template', [
+            '#activator' => '{on, attrs}'
+        ])->addChild('v-btn', [
+            'icon', 'text',
+            '@click' => $props['confirm-delete-dialog'].'.visible = true',
+            'v-bind'=>"attrs",
+            'v-on'=>"on"
+        ])->addChild('v-icon', ['color' => 'red lighten-2', 'small'])->text('mdi-delete');
     }
 
     private function addDialogActions($props) {
@@ -211,22 +225,20 @@ class CRUDList extends HTMLNode {
         $actionsContainer->addChild('v-spacer');
         
         $this->cancelBtn = $actionsContainer->addChild('v-btn', [
-            'color' => "blue darken-1",
             'text',
             '@click' => $props['dialog'].".visible = false"
         ]);
         $this->getCancelBtn()->addChild('v-icon', [
-            'color' => 'red lighten-1'
+            'color' => 'red lighten-2'
         ])->text('mdi-close-circle');
         
         $addAction = isset($props['add-action']) ? $props['add-action'] : 'addItem';
         $this->saveBtn = $actionsContainer->addChild('v-btn', [
-            'color' => "blue darken-1",
             'text',
             '@click' => $addAction,
         ]);
         $this->getSaveBtn()->addChild('v-icon', [
-            'color' => 'green'
+            'color' => 'green lighten-1'
         ])->text('mdi-check-circle');
     }
 
