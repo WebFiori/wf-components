@@ -108,7 +108,7 @@ class Dialog extends HTMLNode {
      * 
      * @return HTMLNode The added element.
      */
-    public function addChild($node, $attrsOrChain = [], $chainOnParent = false) {
+    public function addToBody($node, $attrsOrChain = [], $chainOnParent = false) {
         return $this->getVCard()->addChild($node, $attrsOrChain, $chainOnParent);
     }
 }
