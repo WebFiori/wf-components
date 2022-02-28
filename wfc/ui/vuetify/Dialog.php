@@ -35,7 +35,7 @@ class Dialog extends HTMLNode {
             'max-width' => 500
         ]);
         
-        $this->vCard = $this->addChild('v-card');
+        $this->vCard = parent::addChild('v-card');
         
         if ($toolbar === true) {
             $this->vToolbar = $this->vCard->addChild('v-toolbar', [
