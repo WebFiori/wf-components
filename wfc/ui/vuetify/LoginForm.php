@@ -2,7 +2,7 @@
 namespace wfc\ui\vuetify;
 
 use webfiori\ui\HTMLNode;
-
+use wfc\ui\vuetify\VBtn;
 /**
  * A class which builds a basic login form in top of 'v-card' element.
  *
@@ -95,10 +95,11 @@ class LoginForm extends HTMLNode {
         ]);
         $this->addChild('v-divider');
 
-        $this->addChild('v-card-actions')->addChild('v-btn', [
+        $this->addChild('v-card-actions')->addChild(new VBtn([
             'id' => 'login-button',
             'color' => 'primary',
-        ])->text('Login');
+            'label' => 'Login'
+        ]));
         
         if (isset($options['username-label'])) {
             $this->setUsernameLabel($options['username-label']);
@@ -122,7 +123,7 @@ class LoginForm extends HTMLNode {
     /**
      * Returns the Vuetify component that represents login button
      * 
-     * @return HTMLNode
+     * @return VBtn
      */
     public function getLoginButton() {
         return $this->getChildByID('login-button');

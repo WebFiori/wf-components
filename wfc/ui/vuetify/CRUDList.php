@@ -5,6 +5,7 @@ namespace wfc\ui\vuetify;
 use webfiori\ui\HTMLNode;
 use wfc\ui\vuetify\Dialog;
 use webfiori\framework\exceptions\UIException;
+use wfc\ui\vuetify\VBtn;
 /**
  * A v-list element which supports performing CRUD operations.
  *
@@ -143,11 +144,14 @@ class CRUDList extends HTMLNode {
         $editAction = isset($props['edit-action']) ? $props['edit-action'] : 'editItem';
         $this->editBtn = $listItem->addChild('v-list-item-action', [
             'class' => 'ma-0'
-        ])->addChild('v-btn', [
-            'icon', 'text',
-            '@click' => $editAction.'(item, i)'
-        ]);
-        $this->getEditBtn()->addChild('v-icon', ['color' => 'primary lighten-1', 'small'])->text('mdi-pencil');
+        ])->addChild(new VBtn([
+            '@click' => $editAction.'(item, i)',
+            'icon' => 'mdi-pencil',
+            'icon-props' => [
+                'color' => 'primary lighten-1', 
+                'small'
+            ]
+        ]));
         
         $listItem->addChild('v-list-item-action', [
             'class' => 'ma-0'
@@ -173,15 +177,14 @@ class CRUDList extends HTMLNode {
         
         $this->addBtn = $this->getDialog()->addChild('template', [
             '#activator' => '{on, attrs}'
-        ])->addChild('v-btn', [
-            'color' => "primary lighten-1",
-            'text',
+        ])->addChild(new VBtn([
             'v-bind'=>"attrs",
-            'v-on'=>"on"
-        ]);
-        $this->getAddBtn()->addChild('v-icon', [
-            'color' => "primary lighten-1",
-        ])->text('mdi-plus-circle');
+            'v-on'=>"on",
+            'icon' => 'mdi-plus-circle',
+            'icon-props' => [
+                'color' => "primary lighten-1"
+            ]
+        ]));
     }
 
     private function addConfirmDeleteActions($props) {
@@ -189,34 +192,37 @@ class CRUDList extends HTMLNode {
         $confirmActions = $this->getConfirmDeleteDialog()->addToBody('v-card-actions');
         
         $confirmActions->addChild('v-spacer');
-        $this->cancelConfirmBtn = $confirmActions->addChild('v-btn', [
-            'color' => "red lighten-2",
-            'text',
-            '@click' => $props['confirm-delete-dialog'].".visible = false"
-        ]);
-        $this->getConfirnCancelBtn()->addChild('v-icon', [
-            'color' => 'red lighten-2'
-        ])->text('mdi-close-circle');
+        $this->cancelConfirmBtn = $confirmActions->addChild(new VBtn([
+            '@click' => $props['confirm-delete-dialog'].".visible = false",
+            'icon' => 'mdi-close-circle',
+            'icon-props' => [
+                'color' => 'red lighten-2'
+            ]
+        ]));
         
         $deleteAction = isset($props['delete-action']) ? $props['delete-action'] : 'deleteItem';
         
-        $this->confirmBtn = $confirmActions->addChild('v-btn', [
-            'text',
-            '@click' => $deleteAction.'(item, i)'
-        ]);
-        $this->getConfirnBtn()->addChild('v-icon', [
-            'color' => 'green lighten-1'
-        ])->text('mdi-check-circle');
+        $this->confirmBtn = $confirmActions->addChild(new VBtn([
+            '@click' => $deleteAction.'(item, i)',
+            'icon' => 'mdi-check-circle',
+            'icon-props' => [
+                'color' => 'green lighten-1'
+            ]
+        ]));
         $confirmActions->addChild('v-spacer');
         
         $this->getConfirmDeleteDialog()->addChild('template', [
             '#activator' => '{on, attrs}'
-        ])->addChild('v-btn', [
-            'icon', 'text',
+        ])->addChild(new VBtn([
             '@click' => $props['confirm-delete-dialog'].'.visible = true',
             'v-bind'=>"attrs",
-            'v-on'=>"on"
-        ])->addChild('v-icon', ['color' => 'red lighten-2', 'small'])->text('mdi-delete');
+            'v-on'=>"on",
+            'icon' => 'mdi-delete',
+            'icon-props' => [
+                'color' => 'red lighten-2', 
+                'small'
+            ]
+        ]));
     }
 
     private function addDialogActions($props) {
@@ -224,28 +230,28 @@ class CRUDList extends HTMLNode {
         $actionsContainer = $this->getDialog()->getVCard()->addChild('v-card-actions');
         $actionsContainer->addChild('v-spacer');
         
-        $this->cancelBtn = $actionsContainer->addChild('v-btn', [
-            'text',
-            '@click' => $props['dialog'].".visible = false"
-        ]);
-        $this->getCancelBtn()->addChild('v-icon', [
-            'color' => 'red lighten-2'
-        ])->text('mdi-close-circle');
+        $this->cancelBtn = $actionsContainer->addChild(new VBtn([
+            '@click' => $props['dialog'].".visible = false",
+            'icon' => 'mdi-close-circle',
+            'icon-props' => [
+                'color' => 'red lighten-2'
+            ]
+        ]));
         
         $addAction = isset($props['add-action']) ? $props['add-action'] : 'addItem';
-        $this->saveBtn = $actionsContainer->addChild('v-btn', [
-            'text',
+        $this->saveBtn = $actionsContainer->addChild(new VBtn([
             '@click' => $addAction,
-        ]);
-        $this->getSaveBtn()->addChild('v-icon', [
-            'color' => 'green lighten-1'
-        ])->text('mdi-check-circle');
+            'icon' => 'mdi-check-circle',
+            'icon-props' => [
+                'color' => 'green lighten-1'
+            ]
+        ]));
     }
 
     /**
      * Returns the button which is used to confirm delete operation.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getConfirnBtn() {
         return $this->confirmBtn;
@@ -253,7 +259,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the button which is used to close the delete dialog.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getConfirnCancelBtn() {
         return $this->cancelConfirmBtn;
@@ -261,7 +267,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the button which is used to call the 'delete' method.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getDeleteBtn() {
         return $this->deleteBtn;
@@ -269,7 +275,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the button which is used to open add dialog.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getAddBtn() {
         return $this->addBtn;
@@ -277,7 +283,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the button which is used to call the 'edit' method.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getEditBtn() {
         return $this->editBtn;
@@ -285,7 +291,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the button which is used to call the 'cancel' method.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getCancelBtn() {
         return $this->cancelBtn;
@@ -293,7 +299,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the button which is used to call the 'save' method.
      * 
-     * @return HTMLNode an element with name 'v-btn'.
+     * @return VBtn an element with name 'v-btn'.
      */
     public function getSaveBtn() {
         return $this->saveBtn;

@@ -2,12 +2,14 @@
 namespace wfc\ui\vuetify;
 
 use wfc\ui\vuetify\Dialog;
+use wfc\ui\vuetify\VBtn;
 /**
  * A simple dialog for showing basic system messages with a close button.
  *
  * @author Ibrahim
  */
 class SimpleMessageDialog extends Dialog {
+    private $closeBtn;
     /**
      * Creates new instance of the class.
      * 
@@ -39,10 +41,18 @@ class SimpleMessageDialog extends Dialog {
         $dialogCard->addChild('v-divider');
         $dialogActions = $dialogCard->addChild('v-card-actions');
         $dialogActions->addChild('v-spacer');
-        $dialogActions->addChild('v-btn', [
+        $this->closeBtn = $dialogActions->addChild(new VBtn([
             'color' => "primary",
             'text',
-            '@click' => $closeAction === null ? $model.'.visible = false' : $closeAction
-        ])->text($closeText);
+            '@click' => $closeAction === null ? $model.'.visible = false' : $closeAction,
+            'label' => $closeText
+        ]));
+    }
+    /**
+     * 
+     * @return VBtn
+     */
+    public function getCloseBtn() {
+        return $this->closeBtn;
     }
 }
