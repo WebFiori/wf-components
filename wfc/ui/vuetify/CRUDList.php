@@ -12,6 +12,7 @@ use wfc\ui\vuetify\VBtn;
  * @author Ibrahim BinAlshikh
  */
 class CRUDList extends HTMLNode {
+    private $top;
     private $vlist;
     /**
      * 
@@ -185,21 +186,30 @@ class CRUDList extends HTMLNode {
         
         
     }
-
+    /**
+     * Returns the element that represents the top section of the component.
+     * 
+     * The section simply contains the title of the component and the add button.
+     * 
+     * @return HTMLNode
+     */
+    public function getVToolbar() {
+        return $this->top;
+    }
     private function createHeader($props) {
-        $top = $this->addChild('v-card-text', [
+        $this->top = $this->addChild('v-card-text', [
             'class' => 'py-0'
         ])->addChild('v-toolbar', [
             'dense', 'elevation',
-            'flat'
+            'flat',
         ]);
         $this->addChild('v-divider');
         $componentTitle = isset($props['title']) ? $props['title'] : '';
-        $top->addChild('p', [
+        $this->getVToolbar()->addChild('p', [
             'class' => 'text--secondary ma-0'
         ])->text($componentTitle);
-        $top->addChild('v-spacer');
-        $top->addChild($this->getDialog());
+        $this->getVToolbar()->addChild('v-spacer');
+        $this->getVToolbar()->addChild($this->getDialog());
         
         $this->addBtn = $this->getDialog()->addChild('template', [
             '#activator' => '{on, attrs}'
