@@ -74,12 +74,19 @@ class CRUDList extends HTMLNode {
      * <li>dialog: The name of dialog model that will be used by the add/edit 
      * dialog. It follows same structure which is defined by the class 'Dialog'.</li>
      * <li>dialog-title: The title that will appear in the top of the add/edit dialog.
-     * If not provided, the value 'New Item' is used.</li>
-     * <li>add-action: The method that will be called when the action of 
-     * add/edit dialog is 'add'</li>
-     * <li>add-action: The method that will be called when the action of 
-     * add/edit dialog is 'edit'. It accepts the item and its index in the list.</li>
-     * <li>add-action: The method that will be called when the action delete is performed.</li>
+     * If not provided, the value '{{dialog.title}}' is used where 'dialog' is the 
+     * name of dialog model.</li>
+     * <li>add-action: The method that will be called when the confirm button of the 
+     * add/edit dialog is clicked.</li>
+     * <li>edit-action: The method that will be called when the edit button is clicked.
+     * It accepts the item and its index in the list (e.g. editItem(item, index).</li>
+     * <li>delete-title: The title that will appear in the top of the delete dialog.
+     * If not provided, the value '{{dialog.title}}' is used where 'dialog' is the 
+     * name of delete dialog model.</li>
+     * <li>confirm-delete-action: The method that will be called when the delete button is clicked.
+     * It accepts the item and its index in the list (e.g. confirmDelete(item, index).</li>
+     * <li>delete-action: The method that will be called when the action delete is performed.</li>
+     * <li>delete-prompt: The text that will appear in the body of the delete dialog.</li>
      * </ul>
      */
     public function __construct($props) {
@@ -94,6 +101,7 @@ class CRUDList extends HTMLNode {
             throw new UIException('The "confirm-delete-dialog" model is missing.');
         }
         $this->confirmDeleteDialog = new Dialog($props['confirm-delete-dialog'], true);
+        $this->addChild($this->confirmDeleteDialog);
         $deleteText = isset($props['delete-prompt']) ? $props['delete-prompt'] : 'Are you sure that you would like to remove the item?';
         $this->getConfirmDeleteDialog()->addToBody('v-card-text', [
             'class' => 'pa-5'
@@ -110,14 +118,11 @@ class CRUDList extends HTMLNode {
         $this->addDialogActions($props);
         $this->addConfirmDeleteActions($props);
         
-        $dialogTitle = isset($props['dialog-title']) ? $props['dialog-title'] : 'New Item';
+        $dialogTitle = isset($props['dialog-title']) ? $props['dialog-title'] : '{{'.$props['dialog'].'.title}}';
         $this->getDialog()->getToolbar()->addChild('v-toolbar-title')->text($dialogTitle);
         
-        $deleteDialogTitle = isset($props['delete-title']) ? $props['delete-title'] : 'Remove Item';
+        $deleteDialogTitle = isset($props['delete-title']) ? $props['delete-title'] : '{{'.$props['confirm-delete-dialog'].'.title}}';
         $this->getConfirmDeleteDialog()->getToolbar()->addChild('v-toolbar-title')->text($deleteDialogTitle);
-        
-        
-        
         
     }
     private function createBody($props) {
@@ -153,9 +158,20 @@ class CRUDList extends HTMLNode {
             ]
         ]));
         
+        $deleteConfirmAction = isset($props['confirm-delete-action']) ? $props['confirm-delete-action'] : 'confirmDeleteItem';
+        
+        $this->deleteBtn = new VBtn([
+            '@click' => $deleteConfirmAction.'(item, i)',
+            'icon' => 'mdi-delete',
+            'icon-props' => [
+                'color' => 'red lighten-2', 
+                'small'
+            ]
+        ]);
+        
         $listItem->addChild('v-list-item-action', [
             'class' => 'ma-0'
-        ])->addChild($this->getConfirmDeleteDialog());
+        ])->addChild($this->deleteBtn);
         
         
     }
@@ -203,7 +219,7 @@ class CRUDList extends HTMLNode {
         $deleteAction = isset($props['delete-action']) ? $props['delete-action'] : 'deleteItem';
         
         $this->confirmBtn = $confirmActions->addChild(new VBtn([
-            '@click' => $deleteAction.'(item, i)',
+            '@click' => $deleteAction,
             'icon' => 'mdi-check-circle',
             'icon-props' => [
                 'color' => 'green lighten-1'
@@ -211,18 +227,6 @@ class CRUDList extends HTMLNode {
         ]));
         $confirmActions->addChild('v-spacer');
         
-        $this->getConfirmDeleteDialog()->addChild('template', [
-            '#activator' => '{on, attrs}'
-        ])->addChild(new VBtn([
-            '@click' => $props['confirm-delete-dialog'].'.visible = true',
-            'v-bind'=>"attrs",
-            'v-on'=>"on",
-            'icon' => 'mdi-delete',
-            'icon-props' => [
-                'color' => 'red lighten-2', 
-                'small'
-            ]
-        ]));
     }
 
     private function addDialogActions($props) {
