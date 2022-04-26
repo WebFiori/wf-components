@@ -12,6 +12,7 @@ use wfc\ui\vuetify\VBtn;
  * @author Ibrahim BinAlshikh
  */
 class CRUDList extends HTMLNode {
+    private $vlist;
     /**
      * 
      * @var Dialog
@@ -125,10 +126,19 @@ class CRUDList extends HTMLNode {
         $this->getConfirmDeleteDialog()->getToolbar()->addChild('v-toolbar-title')->text($deleteDialogTitle);
         
     }
+    /**
+     * Returns the v-list element that contains list items.
+     * 
+     * @return HTMLNode
+     */
+    public function getVList() {
+        return $this->vlist;
+    }
     private function createBody($props) {
-        $itemsGroup = $this->addChild('v-card-text')->addChild('v-list', [
+        $this->vlist = $this->addChild('v-card-text')->addChild('v-list', [
             'dense',
-        ])->addChild('v-list-item-group',[
+        ]);
+        $itemsGroup = $this->vlist->addChild('v-list-item-group',[
             
         ]);
         $itemsGroup->addChild('v-list-item', [
