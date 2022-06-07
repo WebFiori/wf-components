@@ -25,17 +25,20 @@ class DateInput extends HTMLNode {
     /**
      * Creates new instance of the class.
      * 
-     * @param string $model The name of the object that will hold component
-     * properties. The object must have the following properties:
-     * <ul>
-     * <li>'menu' The model of the 'v-menu'. It must be a boolean.</li>
-     * <li>'date' The model of the 'v-date-picker'. It must be a string.</li>
-     * </ul>
+     * @param string $model The name of the model that will be associated with
+     * the text field and date picker.
+     * 
+     * @param string $menuModel The name of the model that will be associated with
+     * date picker's menu component.
+     * 
+     * @param string $label An optional label to show on the component.
+     * 
+     * @param string $placeholder An optional placeholder to show on the
+     * component.
+     * 
      */
-    public function __construct($model, $label = null, $placeholder = null) {
+    public function __construct(string $model = null, string $menuModel = null, string $label = null, string $placeholder = null) {
         parent::__construct('v-menu', [
-            'ref' => $model,
-            'v-model' => $model.'.menu',
             ':close-on-content-click' => "false",
             'transition' => "scale-transition",
             'offset-y',
@@ -44,8 +47,6 @@ class DateInput extends HTMLNode {
         $pickerAttrs = [];
         $textFieldAttrs = [];
         
-        $pickerAttrs['v-model'] = $model.'.date';
-        $textFieldAttrs['v-model'] = $model.'.date';
         $textFieldAttrs['v-bind'] = 'attrs';
         $textFieldAttrs['v-on'] = 'on';
         $textFieldAttrs['prepend-inner-icon'] = 'mdi-calendar';
@@ -54,7 +55,6 @@ class DateInput extends HTMLNode {
             'v-slot:activator' => "{ on, attrs }"
         ], false)->addChild('v-text-field', $textFieldAttrs);
 
-        $pickerAttrs['@input'] = "$model.menu = false";
         $this->datePicker = $this->addChild('v-date-picker', $pickerAttrs);
         
         if ($label !== null) {
@@ -65,15 +65,39 @@ class DateInput extends HTMLNode {
         } else {
             $this->getTextField()->setAttribute('placeholder', 'YYYY-MM-DD');
         }
+        if ($menuModel !== null) {
+            $this->setMenuVModel($menuModel);
+        }
+        if ($model !== null) {
+            $this->setVModel($model);
+        }
     }
-    public function setOnInput($method) {
+    
+    /**
+     * Sets the value of the attribute input of the text field and change of the
+     * date select.
+     *  
+     * @param string $method The name of JavaScript method.
+     */
+    public function setOnInput(string $method) {
         $this->getTextField()->setAttribute('@input', $method);
         $this->getDatePicker()->setAttribute('@change', $method);
     }
-    public function setMenuVModel($model) {
+    /**
+     * Sets the v-model of the menu component.
+     * 
+     * @param string $model The name of the model.
+     */
+    public function setMenuVModel(string $model) {
         $this->setAttribute('v-model', $model);
+        $this->getDatePicker()->setAttribute('@input', $model.' = false');
     }
-    public function setVModel($model) {
+    /**
+     * Sets v-model of the text field and the date picker.
+     * 
+     * @param string $model The name of the model.
+     */
+    public function setVModel(string $model) {
         $this->getTextField()->setAttribute('v-model', $model);
         $this->getDatePicker()->setAttribute('v-model', $model);
     }
@@ -82,7 +106,7 @@ class DateInput extends HTMLNode {
      * 
      * @return HTMLNode
      */
-    public function getTextField() {
+    public function getTextField() : HTMLNode {
         return $this->textField;
     }
     /**
@@ -90,7 +114,7 @@ class DateInput extends HTMLNode {
      * 
      * @return HTMLNode
      */
-    public function getDatePicker() {
+    public function getDatePicker() : HTMLNode {
         return $this->datePicker;
     }
 }
