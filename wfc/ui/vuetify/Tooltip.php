@@ -37,26 +37,32 @@ class Tooltip extends HTMLNode {
     /**
      * Sets the element that will act as tooltip activator.
      * 
-     * @param HTMLNode $el
+     * @param HTMLNode|string $el
+     * 
+     * @return HTMLNode The method will return the added element.
      */
-    public function setActivator(HTMLNode $el) {
+    public function setActivator($el) : HTMLNode {
         $this->contentArea->removeAllChildNodes();
-        $el->setAttributes([
+        $xEl = $this->contentArea->addChild($el);
+        $xEl->setAttributes([
             'v-bind' => "attrs",
             'v-on' => "on",
         ]);
-        $this->contentArea->addChild($el);
+        
+        return $xEl;
     }
     /**
      * Sets the element that will act as the tooltip.
      * 
-     * @param HTMLNode $el
+     * @param HTMLNode|string $el
+     * 
+     * @return HTMLNode The method will return the added element.
      */
-    public function setTooltip(HTMLNode $el) {
+    public function setTooltip($el) : HTMLNode {
         if ($this->childrenCount() == 2) {
             $this->removeLastChild();
         }
-        parent::addChild($el);
+        return parent::addChild($el);
     }
     /**
      * Sets the position of the tooltip.
