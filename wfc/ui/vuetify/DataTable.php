@@ -105,7 +105,7 @@ class DataTable extends HTMLNode {
      * <li>page_number: Represent current active page.</li>
      * <li>pages_count: Number of pages. This usually is fetched from backend.</li>
      * <li>size: Size of one page. Simply, number of records in one page.</li>
-     * <li>An array that contain number of items per page like 5, 10, 20</li>
+     * <li>pages_options: An array that contain number of items per page like 5, 10, 20</li>
      * </ul>
      * @param string $name Name of the model. Defined in 'data' section.
      */
@@ -117,6 +117,10 @@ class DataTable extends HTMLNode {
         $this->getPageSizeInput()->setAttributes([
             'v-model' => $name.'.size',
             ':items' => $name.'.size_options',
+        ]);
+        $this->setAttributes([
+            ':page.sync' => $name.'.page_number',
+            ':items-per-page' => $name.'.page.size',
         ]);
     }
     /**

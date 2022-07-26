@@ -34,6 +34,11 @@ class Tooltip extends HTMLNode {
             $this->setTooltip($tooltip);
         }
     }
+    /**
+     * Sets the element that will act as tooltip activator.
+     * 
+     * @param HTMLNode $el
+     */
     public function setActivator(HTMLNode $el) {
         $this->contentArea->removeAllChildNodes();
         $el->setAttributes([
@@ -43,21 +48,23 @@ class Tooltip extends HTMLNode {
         $this->contentArea->addChild($el);
     }
     /**
-     * A method that does nothing.
+     * Sets the element that will act as the tooltip.
      * 
-     * @param type $node
-     * @param type $attrsOrChain
-     * @param type $chainOnParent
+     * @param HTMLNode $el
      */
-    public function addChild($node, $attrsOrChain = [], $chainOnParent = false) {
-        
-    }
     public function setTooltip(HTMLNode $el) {
         if ($this->childrenCount() == 2) {
             $this->removeLastChild();
         }
         parent::addChild($el);
     }
+    /**
+     * Sets the position of the tooltip.
+     * 
+     * The position will be relative to the activator.
+     * 
+     * @param string $position
+     */
     public function setPosition(string $position) {
         $this->setAttribute($position);
     }
