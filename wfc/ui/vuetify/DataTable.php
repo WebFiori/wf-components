@@ -40,7 +40,7 @@ class DataTable extends HTMLNode {
         $this->pageSizeSelect = $footerRow->addChild('v-col', [
             'cols' => 12, 'sm' => 12, 'md' => '3'
         ])->addChild('v-select', [
-            'label' => 'Select items count...',
+            'label' => 'Items Per Page',
             'v-model' => 'page.size',
             ':items' => 'page.items',
             'outlined', 'dense',
@@ -62,6 +62,24 @@ class DataTable extends HTMLNode {
      */
     public function setOnPageNumberClick(string $func) {
         $this->getVPagination()->setAttribute('@input', $func);
+    }
+    /**
+     * Adds support for expanding table rows.
+     * 
+     * @param HTMLNode|string $el The element that will be shown when a row is expanded.
+     * The element can have access to two properties, 'headers' and 'item'.
+     * 
+     * @return HTMLNode The method will return the added element.
+     */
+    public function addExpandedRow($el) : HTMLNode {
+        $this->setAttributes([
+            'show-expand','single-expand',
+        ]);
+        return $this->addChild('template', [
+            '#expanded-item' => '{ headers, item }'
+        ])->addChild('td', [
+            ':colspan' => "headers.length"
+        ])->addChild($el);
     }
     /**
      * Sets the name of JavaScript function that will be get executed when
@@ -120,7 +138,7 @@ class DataTable extends HTMLNode {
         ]);
         $this->setAttributes([
             ':page.sync' => $name.'.page_number',
-            ':items-per-page' => $name.'.page.size',
+            ':items-per-page' => $name.'.size',
         ]);
     }
     /**
