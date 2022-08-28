@@ -28,6 +28,7 @@ class ViewFileDialog extends Dialog {
         parent::__construct($model, true);
         $this->setAttribute('width', '70%');
         $this->removeAttribute('max-width');
+        $this->setAttribute(':fullscreen', $model.'.fullscreen');
         $this->getToolbar()->addChild(new VBtn([
             'icon',
             'dark',
@@ -44,7 +45,10 @@ class ViewFileDialog extends Dialog {
             ]));
         }
         
+        
+        
         $this->addToBody('object', [
+            'v-if' => '!'.$model.'.fullscreen',
             ':data' => $model.'.file',
             ':type' => $model.'.mime',
             'style' => [
@@ -52,6 +56,34 @@ class ViewFileDialog extends Dialog {
                 'width' => '100%'
             ]
         ]);
+        $this->addToBody('object', [
+            'v-else',
+            ':data' => $model.'.file',
+            ':type' => $model.'.mime',
+            'class' => 'fill-height',
+            'style' => [
+                'width' => '100%'
+            ]
+        ]);
     }
-
+    /**
+     * Adds buttons to head section of the dialog to minimize and maximize its size.
+     */
+    public function includeFullScreenButton() {
+        $this->getToolbar()->addChild(new VBtn([
+            'icon',
+            'dark',
+            '@click' => $this->getModel().".fullscreen = true",
+            'icon' => 'mdi-arrow-expand-all',
+            'v-if' => '!'.$this->getModel().'.fullscreen'
+        ]));
+        
+        $this->getToolbar()->addChild(new VBtn([
+            'icon',
+            'dark',
+            '@click' => $this->getModel().".fullscreen = false",
+            'icon' => 'mdi-arrow-collapse-all',
+            'v-if' => $this->getModel().'.fullscreen'
+        ]));
+    }
 }
