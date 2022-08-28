@@ -12,6 +12,7 @@ use webfiori\ui\HTMLNode;
 class Dialog extends HTMLNode {
     private $vCard;
     private $vToolbar;
+    private $model;
     /**
      * Creates new instance of the class.
      * 
@@ -34,7 +35,7 @@ class Dialog extends HTMLNode {
             'scrollable',
             'max-width' => 500
         ]);
-        
+        $this->model = $model;
         $this->vCard = parent::addChild('v-card');
         
         if ($toolbar === true) {
@@ -61,6 +62,14 @@ class Dialog extends HTMLNode {
                     'display' => 'inline'
                 ]
             ])->text("{{ ".$model.".title }}");
+    }
+    /**
+     * Returns the name of dialog model that will contain dialog properties.
+     * 
+     * @return string
+     */
+    public function getModel() : string {
+        return $this->model;
     }
     /**
      * Returns the 'v-card-title' element that contains the title of the 
