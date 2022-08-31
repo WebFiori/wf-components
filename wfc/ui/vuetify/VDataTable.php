@@ -9,7 +9,7 @@ use webfiori\ui\HTMLNode;
  *
  * @author Ibrahim
  */
-class DataTable extends HTMLNode {
+class VDataTable extends HTMLNode {
     
     private $pageSizeSelect;
     private $footer;

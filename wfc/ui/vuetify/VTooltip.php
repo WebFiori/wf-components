@@ -9,7 +9,7 @@ use webfiori\ui\HTMLNode;
  *
  * @author Ibrahim
  */
-class Tooltip extends HTMLNode {
+class VTooltip extends HTMLNode {
     private $contentArea;
     /**
      * Creates new instance of the class.

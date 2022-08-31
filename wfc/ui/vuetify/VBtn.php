@@ -63,7 +63,6 @@ class VBtn extends HTMLNode {
     public function setIcon($mdiIcon, array $iconProps = []) {
         if ($this->iconNode === null) {
             $this->iconNode = $this->addChild('v-icon');
-            $this->setAttribute('icon');
         }
         if ($this->iconNode->childrenCount() != 1) {
             $this->iconNode->text('');

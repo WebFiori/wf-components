@@ -1,14 +1,14 @@
 <?php
 namespace wfc\ui\vuetify;
 
-use wfc\ui\vuetify\Dialog;
+use wfc\ui\vuetify\VDialog;
 use wfc\ui\vuetify\VBtn;
 /**
  * A simple dialog for showing basic system messages with a close button.
  *
  * @author Ibrahim
  */
-class SimpleMessageDialog extends Dialog {
+class MessageDialog extends VDialog {
     private $closeBtn;
     /**
      * Creates new instance of the class.

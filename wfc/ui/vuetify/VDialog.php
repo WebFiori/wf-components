@@ -9,7 +9,7 @@ use webfiori\ui\HTMLNode;
  *
  * @author Ibrahim
  */
-class Dialog extends HTMLNode {
+class VDialog extends HTMLNode {
     private $vCard;
     private $vToolbar;
     private $model;

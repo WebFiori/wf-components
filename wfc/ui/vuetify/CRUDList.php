@@ -3,7 +3,7 @@
 namespace wfc\ui\vuetify;
 
 use webfiori\ui\HTMLNode;
-use wfc\ui\vuetify\Dialog;
+use wfc\ui\vuetify\VDialog;
 use webfiori\framework\exceptions\UIException;
 use wfc\ui\vuetify\VBtn;
 /**
@@ -16,12 +16,12 @@ class CRUDList extends HTMLNode {
     private $vlist;
     /**
      * 
-     * @var Dialog
+     * @var VDialog
      */
     private $addEditDialog;
     /**
      * 
-     * @var Dialog
+     * @var VDialog
      */
     private $confirmDeleteDialog;
     /**
@@ -98,11 +98,11 @@ class CRUDList extends HTMLNode {
         if (!isset($props['dialog'])) {
             throw new UIException('The add/edit dialog model is missing.');
         }
-        $this->addEditDialog = new Dialog($props['dialog'], true);
+        $this->addEditDialog = new VDialog($props['dialog'], true);
         if (!isset($props['confirm-delete-dialog'])) {
             throw new UIException('The "confirm-delete-dialog" model is missing.');
         }
-        $this->confirmDeleteDialog = new Dialog($props['confirm-delete-dialog'], true);
+        $this->confirmDeleteDialog = new VDialog($props['confirm-delete-dialog'], true);
         $this->addChild($this->confirmDeleteDialog);
         $deleteText = isset($props['delete-prompt']) ? $props['delete-prompt'] : 'Are you sure that you would like to remove the item?';
         $this->getConfirmDeleteDialog()->addToBody('v-card-text', [
@@ -347,7 +347,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the dialog which is used as add/edit dialog.
      * 
-     * @return Dialog
+     * @return VDialog
      */
     public function getDialog() {
         return $this->addEditDialog;
@@ -355,7 +355,7 @@ class CRUDList extends HTMLNode {
     /**
      * Returns the dialog which is used as confirm delete dialog.
      * 
-     * @return Dialog
+     * @return VDialog
      */
     public function getConfirmDeleteDialog() {
         return $this->confirmDeleteDialog;

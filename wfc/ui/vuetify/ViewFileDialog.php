@@ -2,14 +2,14 @@
 
 namespace wfc\ui\vuetify;
 
-use wfc\ui\vuetify\Dialog;
+use wfc\ui\vuetify\VDialog;
 use wfc\ui\vuetify\VBtn;
 /**
  * A simple dialog which can be used to display a file in the same page as pop-up.
  *
  * @author Ibrahim
  */
-class ViewFileDialog extends Dialog {
+class ViewFileDialog extends VDialog {
     /**
      * 
      * @param string $model The name of the object that will 
