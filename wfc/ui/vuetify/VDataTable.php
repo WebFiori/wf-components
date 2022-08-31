@@ -24,6 +24,7 @@ class VDataTable extends HTMLNode {
         parent::__construct('v-data-table', $attrs);
         $this->setAttributes([
             'hide-default-footer',
+            ':items-per-page' => 'page.size'
         ]);
         
         $this->footer = $this->addChild('template', [
@@ -57,6 +58,8 @@ class VDataTable extends HTMLNode {
     /**
      * Sets the name of JavaScript function that will be get executed when
      * page number input changes value.
+     * 
+     * Note that the first parameter of the function will be page number.
      * 
      * @param string $func
      */
