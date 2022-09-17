@@ -163,6 +163,7 @@ class CRUDList extends HTMLNode {
         ])->addChild(new VBtn([
             '@click' => $editAction.'(item, i)',
             'icon' => 'mdi-pencil',
+            'icon',
             'icon-props' => [
                 'color' => 'primary lighten-1', 
                 'small'
@@ -174,6 +175,7 @@ class CRUDList extends HTMLNode {
         $this->deleteBtn = new VBtn([
             '@click' => $deleteConfirmAction.'(item, i)',
             'icon' => 'mdi-delete',
+            'icon',
             'icon-props' => [
                 'color' => 'red lighten-2', 
                 'small'
@@ -217,6 +219,7 @@ class CRUDList extends HTMLNode {
             'v-bind'=>"attrs",
             'v-on'=>"on",
             'icon' => 'mdi-plus-circle',
+            'icon',
             'icon-props' => [
                 'color' => "primary lighten-1"
             ]
@@ -231,6 +234,7 @@ class CRUDList extends HTMLNode {
         $this->cancelConfirmBtn = $confirmActions->addChild(new VBtn([
             '@click' => $props['confirm-delete-dialog'].".visible = false",
             'icon' => 'mdi-close-circle',
+            'icon',
             'icon-props' => [
                 'color' => 'red lighten-2'
             ]
@@ -241,6 +245,7 @@ class CRUDList extends HTMLNode {
         $this->confirmBtn = $confirmActions->addChild(new VBtn([
             '@click' => $deleteAction,
             'icon' => 'mdi-check-circle',
+            'icon',
             'icon-props' => [
                 'color' => 'green lighten-1'
             ]
@@ -257,6 +262,7 @@ class CRUDList extends HTMLNode {
         $this->cancelBtn = $actionsContainer->addChild(new VBtn([
             '@click' => $props['dialog'].".visible = false",
             'icon' => 'mdi-close-circle',
+            'icon',
             'icon-props' => [
                 'color' => 'red lighten-2'
             ]
@@ -266,6 +272,7 @@ class CRUDList extends HTMLNode {
         $this->saveBtn = $actionsContainer->addChild(new VBtn([
             '@click' => $addAction,
             'icon' => 'mdi-check-circle',
+            'icon',
             'icon-props' => [
                 'color' => 'green lighten-1'
             ]
