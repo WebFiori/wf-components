@@ -71,6 +71,16 @@ class VBtn extends HTMLNode {
         $this->iconNode->setAttributes($iconProps);
     }
     /**
+     * Returns the icon which was added to the v-btn component.
+     * 
+     * @return HTMLNode|null If an icon is added to the button, the method
+     * will return it as an object of type HTMLNode. Other than that, null
+     * is returned.
+     */
+    public function getVIcon() {
+        return $this->iconNode;
+    }
+    /**
      * Sets a text to show on the button.
      * 
      * @param string|null $text A string that represents the text. If null is given,
