@@ -14,6 +14,7 @@ class VDataTable extends HTMLNode {
     private $pageSizeSelect;
     private $footer;
     private $vPagination;
+    private $paginationModelName;
     /**
      * Creates new instance of the class.
      * 
@@ -152,6 +153,7 @@ class VDataTable extends HTMLNode {
             ':page.sync' => $name.'.page_number',
             ':items-per-page' => $name.'.size',
         ]);
+        $this->paginationModelName = $name;
     }
     /**
      * Sets if the table will have a footer or not.
@@ -162,6 +164,7 @@ class VDataTable extends HTMLNode {
     public function setHasFooter(bool $withFooter) {
         if ($withFooter && $this->getFooter()->getParent() === null) {
             $this->addChild($this->getFooter());
+            $this->setAttribute(':items-per-page', $this->paginationModelName.'.size');
         } else {
             $this->removeChild($this->getFooter());
             $this->removeAttribute(':items-per-page');
