@@ -82,17 +82,20 @@ class VDataTable extends HTMLNode {
         $this->setAttributes([
             'show-expand','single-expand',
         ]);
-        return $this->addChild('template', [
-            '#expanded-item' => '{ headers, item }'
-        ])->addChild('td', [
-            ':colspan' => "headers.length"
-        ])->addChild($el);
         
         if ($expandedCallback !== null) {
             $this->setAttribute('@item-expanded', $expandedCallback);
         } else {
             $this->removeAttribute('@item-expanded');
         }
+        
+        return $this->addChild('template', [
+            '#expanded-item' => '{ headers, item }'
+        ])->addChild('td', [
+            ':colspan' => "headers.length"
+        ])->addChild($el);
+        
+        
     }
     /**
      * Sets the name of JavaScript function that will be get executed when
