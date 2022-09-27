@@ -72,9 +72,12 @@ class VDataTable extends HTMLNode {
      * @param HTMLNode|string $el The element that will be shown when a row is expanded.
      * The element can have access to two properties, 'headers' and 'item'.
      * 
+     * @param string $expandedCallback The name of JavaScript function to call in
+     * case the row is expanded.
+     * 
      * @return HTMLNode The method will return the added element.
      */
-    public function addExpandedRow($el) : HTMLNode {
+    public function addExpandedRow($el, string $expandedCallback = null) : HTMLNode {
         $this->setAttributes([
             'show-expand','single-expand',
         ]);
@@ -83,6 +86,12 @@ class VDataTable extends HTMLNode {
         ])->addChild('td', [
             ':colspan' => "headers.length"
         ])->addChild($el);
+        
+        if ($expandedCallback !== null) {
+            $this->setAttribute('@item-expanded', $expandedCallback);
+        } else {
+            $this->removeAttribute('@item-expanded');
+        }
     }
     /**
      * Sets the name of JavaScript function that will be get executed when
@@ -155,6 +164,7 @@ class VDataTable extends HTMLNode {
             $this->addChild($this->getFooter());
         } else {
             $this->removeChild($this->getFooter());
+            $this->removeAttribute(':items-per-page');
         }
     }
     /**
