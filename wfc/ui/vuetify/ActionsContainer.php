@@ -73,7 +73,7 @@ class ActionsContainer extends HTMLNode {
      * button.
      */
     public function addAddAction(string $jsMeth, $tooltip = 'Add') : VBtn {
-        $vbtn = $this->addAction($jsMeth, 'plus-circle', $tooltip);
+        $vbtn = $this->addAction($jsMeth, 'mdi-plus-circle', $tooltip);
         $vbtn->getVIcon()->setAttribute('color', 'green lighten-1');
         return $vbtn;
     }
@@ -92,7 +92,7 @@ class ActionsContainer extends HTMLNode {
      * button.
      */
     public function addDeleteAction(string $jsMeth, $tooltip = 'Delete') : VBtn {
-        $vbtn = $this->addAction($jsMeth, 'trash-can', $tooltip);
+        $vbtn = $this->addAction($jsMeth, 'mdi-trash-can', $tooltip);
         $vbtn->getVIcon()->setAttribute('color', 'red lighten-1');
         return $vbtn;
     }
