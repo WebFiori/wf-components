@@ -17,7 +17,7 @@ class VIcon extends \webfiori\ui\HTMLNode {
      * the icon.
      */
     public function __construct(string $icon = 'mdi-information', array $iconProps = []) {
-        parent::__construct($icon, $iconProps);
+        parent::__construct('v-icon', $iconProps);
         $this->text($icon);
     }
     /**
