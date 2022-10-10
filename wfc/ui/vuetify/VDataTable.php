@@ -98,6 +98,21 @@ class VDataTable extends HTMLNode {
         
     }
     /**
+     * Adds a custom slot to a column in the table.
+     * 
+     * @param string $slot The name of the slot as in 'item.slot'.
+     * 
+     * @param string|HTMLNode $el The element that will be added to the slot.
+     * 
+     * @return HTMLNode The method will return an object of type HTMLNode
+     * that represents the added element.
+     */
+    public function addItemSlot(string $slot , $el) : HTMLNode {
+        return $this->addChild('template', [
+            '#item.'.$slot
+        ])->addChild($el);
+    }
+    /**
      * Sets the name of JavaScript function that will be get executed when
      * page size input changes value.
      * 

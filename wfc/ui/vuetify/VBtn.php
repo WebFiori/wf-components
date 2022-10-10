@@ -10,7 +10,7 @@ use webfiori\ui\HTMLNode;
 class VBtn extends HTMLNode {
     /**
      * 
-     * @var HTMLNode|null
+     * @var VIcon|null
      */
     private $iconNode;
     /**
@@ -62,19 +62,17 @@ class VBtn extends HTMLNode {
      */
     public function setIcon($mdiIcon, array $iconProps = []) {
         if ($this->iconNode === null) {
-            $this->iconNode = $this->addChild('v-icon');
+            $this->iconNode = $this->addChild(new VIcon($mdiIcon, $iconProps));
+        } else {
+            $this->iconNode->setIcon($mdiIcon);
+            $this->iconNode->setAttributes($iconProps);
         }
-        if ($this->iconNode->childrenCount() != 1) {
-            $this->iconNode->text('');
-        }
-        $this->iconNode->getChild(0)->setText($mdiIcon);
-        $this->iconNode->setAttributes($iconProps);
     }
     /**
      * Returns the icon which was added to the v-btn component.
      * 
-     * @return HTMLNode|null If an icon is added to the button, the method
-     * will return it as an object of type HTMLNode. Other than that, null
+     * @return VIcon|null If an icon is added to the button, the method
+     * will return it as an object of type VIcon. Other than that, null
      * is returned.
      */
     public function getVIcon() {
