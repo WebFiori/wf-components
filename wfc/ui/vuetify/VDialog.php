@@ -40,7 +40,8 @@ class VDialog extends HTMLNode {
         
         if ($toolbar === true) {
             $this->vToolbar = $this->vCard->addChild('v-toolbar', [
-                'color' => 'primary'
+                'color' => 'primary',
+                'max-height' => 64
             ]);
             return;
         }
@@ -62,6 +63,31 @@ class VDialog extends HTMLNode {
                     'display' => 'inline'
                 ]
             ])->text("{{ ".$model.".title }}");
+    }
+    /**
+     * Adds close button to the toolbar of the dialog.
+     * 
+     * This only applies of the dialog has a toolbar added to it.
+     * 
+     * @param string $closeAction An optional javaScript function to call
+     * in case of button click.
+     * 
+     * @return VBtn|null If a button is added, the method will return it as
+     * an object of type 'VBtn'. Other than that, null is returned.
+     */
+    public function addCloseBtn(string $closeAction = null) {
+        $toolbar = $this->getToolbar();
+        
+        if ($toolbar !== null) {
+            $clickEvnt = $closeAction !== null ? $closeAction : $this->getModel().".visible = false";
+            
+            return $toolbar->addChild(new VBtn([
+                'icon',
+                'dark',
+                '@click' => $clickEvnt,
+                'icon' => 'mdi-close'
+            ]));
+        }
     }
     /**
      * Returns the name of dialog model that will contain dialog properties.
