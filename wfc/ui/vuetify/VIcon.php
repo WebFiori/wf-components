@@ -18,7 +18,8 @@ class VIcon extends \webfiori\ui\HTMLNode {
      */
     public function __construct(string $icon = 'mdi-information', array $iconProps = []) {
         parent::__construct('v-icon', $iconProps);
-        $this->text($icon);
+        $this->text('m');
+        $this->setIcon($icon);
     }
     /**
      * Sets the icon that will be shown by the element.
