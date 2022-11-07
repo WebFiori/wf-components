@@ -109,7 +109,7 @@ class VDataTable extends HTMLNode {
      */
     public function addItemSlot(string $slot , $el) : HTMLNode {
         return $this->addChild('template', [
-            '#item.'.$slot
+            '#item.'.$slot => '{ item }'
         ])->addChild($el);
     }
     /**
