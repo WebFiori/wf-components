@@ -28,12 +28,15 @@ class VIcon extends \webfiori\ui\HTMLNode {
      * The 'mdi' part can be omitted of the name as it is optional. 
      */
     public function setIcon(string $icon) {
-        $sub = substr($icon, 0, 3);
+        $isSlot = $icon[0] == '{' && $icon[1] == '{';
         
-        if ($sub !== 'mdi') {
-            $icon = 'mdi-'.$icon;
+        if (!$isSlot) {
+            $sub = substr($icon, 0, 3);
+
+            if ($sub !== 'mdi') {
+                $icon = 'mdi-'.$icon;
+            }
         }
-        
         $this->getChild(0)->setText($icon);
     }
 }
