@@ -31,13 +31,12 @@ class DateInput extends HTMLNode {
      * @param string $menuModel The name of the model that will be associated with
      * date picker's menu component.
      * 
-     * @param string $label An optional label to show on the component.
      * 
-     * @param string $placeholder An optional placeholder to show on the
-     * component.
+     * @param string $textFieldProps An optional array that holds properties of the
+     * text field that will hold date value.
      * 
      */
-    public function __construct(string $model = null, string $menuModel = null, string $label = null, string $placeholder = null) {
+    public function __construct(string $model = null, string $menuModel = null, array $textFieldProps = []) {
         parent::__construct('v-menu', [
             ':close-on-content-click' => "false",
             'transition' => "scale-transition",
@@ -57,12 +56,9 @@ class DateInput extends HTMLNode {
 
         $this->datePicker = $this->addChild('v-date-picker', $pickerAttrs);
         
-        if ($label !== null) {
-            $this->getTextField()->setAttribute('label', $label);
-        }
-        if ($placeholder !== null) {
-            $this->getTextField()->setAttribute('placeholder', $placeholder);
-        } else {
+        $this->getTextField()->setAttributes($textFieldProps);
+        
+        if (!isset($textFieldAttrs['placeholder'])) {
             $this->getTextField()->setAttribute('placeholder', 'YYYY-MM-DD');
         }
         if ($menuModel !== null) {
@@ -78,28 +74,40 @@ class DateInput extends HTMLNode {
      * date select.
      *  
      * @param string $method The name of JavaScript method.
+     * 
+     * @return DateInput
      */
-    public function setOnInput(string $method) {
+    public function setOnInput(string $method) : DateInput {
         $this->getTextField()->setAttribute('@input', $method);
         $this->getDatePicker()->setAttribute('@change', $method);
+        
+        return $this;
     }
     /**
      * Sets the v-model of the menu component.
      * 
      * @param string $model The name of the model.
+     * 
+     * @return DateInput
      */
-    public function setMenuVModel(string $model) {
+    public function setMenuVModel(string $model) : DateInput {
         $this->setAttribute('v-model', $model);
         $this->getDatePicker()->setAttribute('@input', $model.' = false');
+        
+        return $this;
     }
     /**
      * Sets v-model of the text field and the date picker.
      * 
      * @param string $model The name of the model.
+     * 
+     * @return DateInput
      */
-    public function setVModel(string $model) {
+    public function setVModel(string $model) : DateInput {
         $this->getTextField()->setAttribute('v-model', $model);
         $this->getDatePicker()->setAttribute('v-model', $model);
+        
+        return $this;
     }
     /**
      * Returns the 'v-text-field' component of the picker.

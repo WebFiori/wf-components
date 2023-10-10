@@ -32,7 +32,7 @@ class Heading extends HTMLNode {
      * @param HTMLNode|string $textOrNode This can be an object of type HTMLNode
      * or a simple string.
      */
-    public function setText($textOrNode) {
+    public function setText($textOrNode) : Heading {
         $this->headingNode->removeAllChildren();
 
         if ($textOrNode instanceof HTMLNode) {
@@ -40,6 +40,8 @@ class Heading extends HTMLNode {
         } else if (gettype($textOrNode) == 'string') {
             $this->headingNode->text($textOrNode);
         }
+        
+        return $this;
     }
     /**
      * Returns the note that contains heading text.

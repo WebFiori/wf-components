@@ -27,7 +27,7 @@ class PrivilegesTree extends HTMLNode {
      * @param boolean $withSearch If set to true, a search field will be 
      * included in the component.
      */
-    public function __construct($model = 'privileges_tree', $title = null, $withSearch = false, ) {
+    public function __construct(string $model = 'privileges_tree', string $title = null, bool $withSearch = false, ) {
         parent::__construct('v-card');
         if ($title !== null) {
             $this->title = $this->addChild('v-card-title')->text($title);

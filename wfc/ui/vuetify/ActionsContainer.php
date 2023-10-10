@@ -16,7 +16,7 @@ class ActionsContainer extends HTMLNode {
      */
     public function __construct() {
         parent::__construct('div', [
-            'class' => 'text-center'
+            //'class' => 'text-center'
         ]);
         
     }

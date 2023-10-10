@@ -55,6 +55,7 @@ class VDataTable extends HTMLNode {
             ':length' => 'page.pages_count',
             '@input' => 'loadPage'
         ]);
+        $this->setHasFooter(false);
     }
     /**
      * Sets the name of JavaScript function that will be get executed when
@@ -63,9 +64,12 @@ class VDataTable extends HTMLNode {
      * Note that the first parameter of the function will be page number.
      * 
      * @param string $func
+     * 
+     * @return VDataTable
      */
-    public function setOnPageNumberClick(string $func) {
+    public function setOnPageNumberClick(string $func) : VDataTable {
         $this->getVPagination()->setAttribute('@input', $func);
+        return $this;
     }
     /**
      * Adds support for expanding table rows.
@@ -104,22 +108,27 @@ class VDataTable extends HTMLNode {
      * 
      * @param string|HTMLNode $el The element that will be added to the slot.
      * 
+     * @param array $attrs An optional array of attributes to set for the element.
+     * 
      * @return HTMLNode The method will return an object of type HTMLNode
      * that represents the added element.
      */
-    public function addItemSlot(string $slot , $el) : HTMLNode {
+    public function addItemSlot(string $slot , $el, array $attrs = []) : HTMLNode {
         return $this->addChild('template', [
             '#item.'.$slot => '{ item }'
-        ])->addChild($el);
+        ])->addChild($el, $attrs);
     }
     /**
      * Sets the name of JavaScript function that will be get executed when
      * page size input changes value.
      * 
      * @param string $func
+     * 
+     * @return VDataTable 
      */
-    public function setOnPageSizeChanged(string $func) {
+    public function setOnPageSizeChanged(string $func) : VDataTable {
         $this->getPageSizeInput()->setAttribute('@input', $func);
+        return $this;
     }
     /**
      * Returns the node that represents the footer of the table.
@@ -157,8 +166,10 @@ class VDataTable extends HTMLNode {
      * <li>pages_options: An array that contain number of items per page like 5, 10, 20</li>
      * </ul>
      * @param string $name Name of the model. Defined in 'data' section.
+     * 
+     * @return VDataTable
      */
-    public function setPagingModel(string $name) {
+    public function setPagingModel(string $name) : VDataTable {
         $this->getVPagination()->setAttributes([
             'v-model' => $name.'.page_number',
             ':length' => $name.'.pages_count',
@@ -172,14 +183,17 @@ class VDataTable extends HTMLNode {
             ':items-per-page' => $name.'.size',
         ]);
         $this->paginationModelName = $name;
+        return $this;
     }
     /**
      * Sets if the table will have a footer or not.
      * 
      * @param bool $withFooter If true is passed, the table will have footer.
      * Other than that, the table will not have footer.
+     * 
+     * @return VDataTable
      */
-    public function setHasFooter(bool $withFooter) {
+    public function setHasFooter(bool $withFooter) : VDataTable {
         if ($withFooter && $this->getFooter()->getParent() === null) {
             $this->addChild($this->getFooter());
             $this->setAttribute(':items-per-page', $this->paginationModelName.'.size');
@@ -187,14 +201,19 @@ class VDataTable extends HTMLNode {
             $this->removeChild($this->getFooter());
             $this->removeAttribute(':items-per-page');
         }
+        
+        return $this;
     }
     /**
      * Sets the properties of the v-select which is used to select items
      * per page.
      * 
      * @param array $attrs
+     * 
+     * @return VDataTable 
      */
-    public function setPageSizeInputProps(array $attrs) {
+    public function setPageSizeInputProps(array $attrs) : VDataTable {
         $this->pageSizeSelect->setAttributes($attrs);
+        return $this;
     }
 }

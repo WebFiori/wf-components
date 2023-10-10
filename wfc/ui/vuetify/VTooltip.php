@@ -71,7 +71,8 @@ class VTooltip extends HTMLNode {
      * 
      * @param string $position
      */
-    public function setPosition(string $position) {
+    public function setPosition(string $position) : VTooltip {
         $this->setAttribute($position);
+        return $this;
     }
 }

@@ -28,7 +28,7 @@ class HijriDateInput extends HTMLNode {
      * @param string $labelTxt The label that will be shown at the top
      * of the field.
      */
-    public function __construct($model, $labelTxt) {
+    public function __construct(string $model, string $labelTxt) {
         parent::__construct('v-row', [
             'no-gutters'
         ]);
@@ -92,12 +92,14 @@ class HijriDateInput extends HTMLNode {
     /**
      * Sets a JS function to call in case one of hijri input fields changes value.
      * 
-     * @param string $jsFunction The name of JavAscript function which is defined
+     * @param string $jsFunction The name of JavaScript function which is defined
      * in the 'methods'.
      */
-    public function setOnInput($jsFunction) {
+    public function setOnInput($jsFunction) : HijriDateInput {
         $this->getYearInput()->setAttribute('@input', $jsFunction);
         $this->getDayInput()->setAttribute('@input', $jsFunction);
         $this->getMonthInput()->setAttribute('@input', $jsFunction);
+        
+        return $this;
     }
 }
