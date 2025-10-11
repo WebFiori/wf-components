@@ -1,13 +1,20 @@
 <?php
 
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
 /**
  * A class that represents a v-icon vuetify element.
  *
  * @author i.binalshikh
  */
-class VIcon extends \webfiori\ui\HTMLNode {
+use WebFiori\Ui\HTMLNode;
+
+/**
+ * A class that represents a v-icon vuetify element.
+ *
+ * @author i.binalshikh
+ */
+class VIcon extends HTMLNode {
     /**
      * Creates new instance of the class.
      * 

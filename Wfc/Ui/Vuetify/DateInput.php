@@ -1,7 +1,7 @@
 <?php
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
+use WebFiori\Ui\HTMLNode;
 /**
  * A single component which is used to construct gregorian date 
  * input field.

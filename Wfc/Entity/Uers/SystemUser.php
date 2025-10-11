@@ -1,8 +1,8 @@
 <?php
-namespace wfc\entity\users;
+namespace Wfc\Entity\Users;
 
-use webfiori\framework\User;
-use webfiori\framework\Access;
+use WebFiori\Framework\User;
+use WebFiori\Framework\Access;
 /**
  * Description of SystemUser
  *

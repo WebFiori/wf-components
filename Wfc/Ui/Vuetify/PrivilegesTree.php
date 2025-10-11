@@ -1,7 +1,7 @@
 <?php
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
+use WebFiori\Ui\HTMLNode;
 /**
  * A v-card element that can be used to display privileges tree.
  *

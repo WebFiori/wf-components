@@ -1,9 +1,9 @@
 <?php
 
-namespace wfc\database\users;
+namespace Wfc\Database\Users;
 
-use webfiori\database\mysql\MySQLTable;
-use wfc\database\users\UserInfoTable;
+use WebFiori\Database\MySql\MySQLTable;
+use Wfc\Database\Users\UserInfoTable;
 
 /**
  * A class which represents the database table 'user_login'.

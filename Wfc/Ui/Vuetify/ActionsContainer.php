@@ -1,10 +1,10 @@
 <?php
 
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
-use wfc\ui\vuetify\VBtn;
-use wfc\ui\vuetify\VTooltip;
+use WebFiori\Ui\HTMLNode;
+use Wfc\Ui\Vuetify\VBtn;
+use Wfc\Ui\Vuetify\VTooltip;
 /**
  * A div element that can be used to contain a set of action buttons.
  *

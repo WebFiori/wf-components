@@ -1,7 +1,7 @@
 <?php
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
+use WebFiori\Ui\HTMLNode;
 /**
  * A 'v-row' component with 3 'v-autocomplete' inputs which can be used to
  * create a hijri date input.

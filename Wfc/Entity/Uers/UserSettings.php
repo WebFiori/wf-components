@@ -1,6 +1,6 @@
 <?php
 
-namespace wfc\entity\users;
+namespace Wfc\Entity\Users;
 
 /**
  * A class that holds user settings.

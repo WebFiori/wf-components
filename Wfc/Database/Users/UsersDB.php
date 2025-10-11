@@ -1,14 +1,14 @@
 <?php
-namespace wfc\database\users;
+namespace Wfc\Database\Users;
 
-use webfiori\framework\DB;
-use webfiori\framework\User;
-use webfiori\framework\Access;
-use webfiori\framework\session\SessionsManager;
-use webfiori\framework\File;
-use webfiori\json\Json;
-use wfc\entity\users\SystemUser;
-use wfc\entity\users\UserRole;
+use WebFiori\Framework\DB;
+use WebFiori\Framework\User;
+use WebFiori\Framework\Access;
+use WebFiori\Framework\session\SessionsManager;
+use WebFiori\Framework\File;
+use WebFiori\Json\Json;
+use Wfc\Entity\Users\SystemUser;
+use Wfc\Entity\Users\UserRole;
 /**
  * A basic class which holds basic operations on users tables.
  *

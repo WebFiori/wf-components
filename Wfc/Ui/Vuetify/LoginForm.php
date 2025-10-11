@@ -1,8 +1,8 @@
 <?php
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
-use wfc\ui\vuetify\VBtn;
+use WebFiori\Ui\HTMLNode;
+use Wfc\Ui\Vuetify\VBtn;
 /**
  * A class which builds a basic login form in top of 'v-card' element.
  *

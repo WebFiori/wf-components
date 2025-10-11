@@ -1,7 +1,7 @@
 <?php
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
+use WebFiori\Ui\HTMLNode;
 /**
  * A class that can be used to add a top heading to the
  * page or inside a section.

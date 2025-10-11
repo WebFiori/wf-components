@@ -1,8 +1,8 @@
 <?php
 
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use webfiori\ui\HTMLNode;
+use WebFiori\Ui\HTMLNode;
 
 /**
  * A class which is used to represent a v-tooltip.

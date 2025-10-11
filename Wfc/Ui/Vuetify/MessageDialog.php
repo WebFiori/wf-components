@@ -1,8 +1,8 @@
 <?php
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use wfc\ui\vuetify\VDialog;
-use wfc\ui\vuetify\VBtn;
+use Wfc\Ui\Vuetify\VDialog;
+use Wfc\Ui\Vuetify\VBtn;
 /**
  * A simple dialog for showing basic system messages with a close button.
  *

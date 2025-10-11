@@ -1,7 +1,7 @@
 <?php
-namespace wfc\entity\users;
+namespace Wfc\Entity\Users;
 
-use webfiori\framework\PrivilegesGroup;
+use WebFiori\Framework\PrivilegesGroup;
 
 /**
  * An auto-generated entity class which maps to a record in the

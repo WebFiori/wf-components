@@ -1,9 +1,9 @@
 <?php
 
-namespace wfc\ui\vuetify;
+namespace Wfc\Ui\Vuetify;
 
-use wfc\ui\vuetify\VDialog;
-use wfc\ui\vuetify\VBtn;
+use Wfc\Ui\Vuetify\VDialog;
+use Wfc\Ui\Vuetify\VBtn;
 /**
  * A simple dialog which can be used to display a file in the same page as pop-up.
  *

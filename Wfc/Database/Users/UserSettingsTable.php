@@ -1,9 +1,9 @@
 <?php
 
-namespace wfc\database\users;
+namespace Wfc\Database\Users;
 
-use webfiori\database\mssql\MSSQLTable;
-use wfc\database\users\UserInfoTable;
+use WebFiori\Database\MsSql\MSSQLTable;
+use Wfc\Database\Users\UserInfoTable;
 
 /**
  * A class which represents the database table 'user_settings'.

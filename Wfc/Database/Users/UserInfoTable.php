@@ -1,8 +1,8 @@
 <?php
 
-namespace wfc\database\users;
+namespace Wfc\Database\Users;
 
-use webfiori\database\mysql\MySQLTable;
+use WebFiori\Database\MySql\MySQLTable;
 
 /**
  * A class which represents the database table 'users'.
