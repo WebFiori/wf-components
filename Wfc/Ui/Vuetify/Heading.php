@@ -29,18 +29,12 @@ class Heading extends HTMLNode {
     /**
      * Sets the text that will appear in the body of the heading.
      * 
-     * @param HTMLNode|string $textOrNode This can be an object of type HTMLNode
-     * or a simple string.
+     * @param string $text The text to set.
+     * @param bool $escHtmlEntities Whether to escape HTML entities.
      */
-    public function setText($textOrNode) : Heading {
-        $this->headingNode->removeAllChildren();
-
-        if ($textOrNode instanceof HTMLNode) {
-            $this->headingNode->addChild($textOrNode);
-        } else if (gettype($textOrNode) == 'string') {
-            $this->headingNode->text($textOrNode);
-        }
-        
+    public function setText(string $text, bool $escHtmlEntities = true): HTMLNode {
+        $this->headingNode->text('');
+        $this->headingNode->setText($text, $escHtmlEntities);
         return $this;
     }
     /**

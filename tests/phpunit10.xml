@@ -9,11 +9,13 @@
     </php>
   <logging/>
   <testsuites>
-    <testsuite name="VuetifyCore Tests">
+    <testsuite name="Wfc Tests">
+      <directory>./Wfc/Tests</directory>
     </testsuite>
   </testsuites>
   <source>
     <include>
+      <directory>../Wfc</directory>
     </include>
   </source>
 </phpunit>

@@ -10,10 +10,12 @@
   <logging/>
   <testsuites>
     <testsuite name="VuetifyCore Tests">
+      <directory>./Themes/VuetifyCore</directory>
     </testsuite>
   </testsuites>
   <source>
     <include>
+      <directory>../Themes/VuetifyCore</directory>
     </include>
   </source>
 </phpunit>

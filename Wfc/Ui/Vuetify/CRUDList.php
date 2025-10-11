@@ -4,7 +4,7 @@ namespace Wfc\Ui\Vuetify;
 
 use WebFiori\Ui\HTMLNode;
 use Wfc\Ui\Vuetify\VDialog;
-use WebFiori\Framework\exceptions\UIException;
+use WebFiori\Framework\Exceptions\UIException;
 use Wfc\Ui\Vuetify\VBtn;
 /**
  * A v-list element which supports performing CRUD operations.
