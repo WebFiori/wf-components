@@ -75,7 +75,7 @@ class VDialog extends HTMLNode {
      * @return VBtn|null If a button is added, the method will return it as
      * an object of type 'VBtn'. Other than that, null is returned.
      */
-    public function addCloseBtn(string $closeAction = null) {
+    public function addCloseBtn(?string $closeAction = null) {
         $toolbar = $this->getToolbar();
         
         if ($toolbar !== null) {

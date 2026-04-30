@@ -20,7 +20,7 @@ class VTooltip extends HTMLNode {
      * @param HTMLNode $tooltip The tooltip that will appear when the mouse pointer
      * is over the activator. Commonly, a span element with a text.
      */
-    public function __construct(HTMLNode $activator = null, HTMLNode $tooltip = null) {
+    public function __construct(?HTMLNode $activator = null, ?HTMLNode $tooltip = null) {
         parent::__construct('v-tooltip', [
             'bottom'
         ]);
