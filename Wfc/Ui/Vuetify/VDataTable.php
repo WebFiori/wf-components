@@ -82,7 +82,7 @@ class VDataTable extends HTMLNode {
      * 
      * @return HTMLNode The method will return the added element.
      */
-    public function addExpandedRow($el, string $expandedCallback = null) : HTMLNode {
+    public function addExpandedRow($el, ?string $expandedCallback = null) : HTMLNode {
         $this->setAttributes([
             'show-expand','single-expand',
         ]);

@@ -18,7 +18,7 @@ use Wfc\Ui\Vuetify\VIcon;
 use Wfc\Ui\Vuetify\VTooltip;
 use Wfc\Ui\Vuetify\ViewFileDialog;
 
-class VuetifyComponentsTests extends TestCase {
+class VuetifyComponentsTest extends TestCase {
 
     public function testActionsContainerCreation() {
         $component = new ActionsContainer();

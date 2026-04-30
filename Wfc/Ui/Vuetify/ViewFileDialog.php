@@ -24,7 +24,7 @@ class ViewFileDialog extends VDialog {
      * @param string $downloadAction The name of JavaScript function that will be
      * called in case download button is clicked. This is optional.
      */
-    public function __construct(string $model, string $downloadAction = null) {
+    public function __construct(string $model, ?string $downloadAction = null) {
         parent::__construct($model, true);
         $this->setAttribute('width', '70%');
         $this->removeAttribute('max-width');

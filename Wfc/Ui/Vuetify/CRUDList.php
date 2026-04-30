@@ -136,6 +136,7 @@ class CRUDList extends HTMLNode {
         return $this->vlist;
     }
     private function createBody($props) {
+        $itemsModel = $props['items'] ?? 'items';
         $this->vlist = $this->addChild('v-card-text')->addChild('v-list', [
             'dense',
         ]);
@@ -143,14 +144,14 @@ class CRUDList extends HTMLNode {
             
         ]);
         $itemsGroup->addChild('v-list-item', [
-            'v-if' => $props['items'].'.length === 0',
+            'v-if' => $itemsModel.'.length === 0',
             'disabled'
         ])->addChild('v-list-item-content', [
             'class' => 'text--disabled'
         ])->text('NO DATA');
         $listItem = $itemsGroup->addChild('v-list-item', [
             'v-else',
-            'v-for' => '(item, i) in '.$props['items'],
+            'v-for' => '(item, i) in '.$itemsModel,
             ':key' => 'i',
             'dense'
         ]);

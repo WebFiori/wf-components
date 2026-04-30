@@ -36,7 +36,7 @@ class DateInput extends HTMLNode {
      * text field that will hold date value.
      * 
      */
-    public function __construct(string $model = null, string $menuModel = null, array $textFieldProps = []) {
+    public function __construct(?string $model = null, ?string $menuModel = null, array $textFieldProps = []) {
         parent::__construct('v-menu', [
             ':close-on-content-click' => "false",
             'transition' => "scale-transition",
